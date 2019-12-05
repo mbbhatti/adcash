@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Order;
+use App\Repositories\OrderRepository;
 
 class HomeController extends Controller
 {
@@ -30,7 +30,7 @@ class HomeController extends Controller
      * @param  object  $order
      * @return void
      */
-    public function __construct(Order $order)
+    public function __construct(OrderRepository $order)
     {        
         $this->order = $order;          
     }    

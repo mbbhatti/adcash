@@ -47,14 +47,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Product::class);
     }
-
-    /**
-     * Get all users.
-     *     
-     * @return object
-     */
-    public function getAll(): object
-    {
-        return User::pluck('name', 'id');
-    }
 }

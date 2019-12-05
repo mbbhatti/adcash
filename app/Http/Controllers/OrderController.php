@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\User;
-use App\Product;
-use App\Order;
+use App\Repositories\UserRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\OrderRepository;
 
 class OrderController extends Controller
 {
@@ -50,15 +50,15 @@ class OrderController extends Controller
     /**
      * Create a new controller instance.
      *     
-     * @param  object  $product     
-     * @param  object  $user        
+     * @param  object  $user    
+     * @param  object  $product              
      * @param  object  $order       
      * @return void
      */
     public function __construct(
-    	Product $product, 
-    	User $user,
-    	Order $order
+    	UserRepository $user,
+        ProductRepository $product,     	
+    	OrderRepository $order
     )
     {
         $this->product = $product;

@@ -26,14 +26,4 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
-    /**
-     * Get all products.
-     *     
-     * @return object
-     */
-    public function getAll(): object
-    {
-        return Product::pluck('name', 'id');
-    }
 }
