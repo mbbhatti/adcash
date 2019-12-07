@@ -10,7 +10,7 @@ interface OrderRepositoryInterface
      * @param int
      * @return array
      */
-    public function getById(int $order_id);
+    public function getById(int $order_id): array;
 
     /**
      * Get's all posts.
@@ -18,7 +18,7 @@ interface OrderRepositoryInterface
      * @param object
      * @return int
      */
-    public function saveOrder(object $request);
+    public function saveOrder(object $request): int;
 
     /**
      * Deletes a order.
@@ -26,7 +26,7 @@ interface OrderRepositoryInterface
      * @param int
      * @return bool
      */
-    public function deleteOrder(int $order_id);
+    public function deleteOrder(int $order_id): bool;
 
     /**
      * Get's all orders.
@@ -34,5 +34,5 @@ interface OrderRepositoryInterface
      * @param object
      * @return object
      */
-    public function getAll(object $request);
+    public function getAll(object $request): object;
 }

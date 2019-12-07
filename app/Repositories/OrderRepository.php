@@ -4,9 +4,28 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Order;
+use App\Services\DiscountCalculation;
 
 class OrderRepository implements OrderRepositoryInterface
 {
+    /**
+     * Used to get order discount.
+     *
+     * @var object
+     */
+    protected $discount;
+
+    /**
+     * Create a new controller instance.
+     *     
+     * @param  object  $order
+     * @return void
+     */
+    public function __construct(DiscountCalculation $discount)
+    {        
+        $this->discount = $discount;          
+    }
+
     /**
      * Get order by id.
      *
@@ -89,22 +108,21 @@ class OrderRepository implements OrderRepositoryInterface
             return $q->where('products.name', 'LIKE', "%".request('q')."%") 
                     ->orWhere('users.name', 'LIKE', "%".request('q')."%");
         });
-        
-        return $query->select(
+
+        $response = $query->select(
             'users.name as username', 
             'products.name', 
             'products.price', 
             'orders.id',
             'orders.quantity', 
-            'orders.date',
-            DB::raw('(
-                CASE WHEN orders.quantity > 2 AND products.name = "Pepsi Cola" 
-                    THEN ROUND((((orders.quantity * products.price) / 100) * 80),2) 
-                    ELSE ROUND(orders.quantity * products.price, 2) 
-                END) AS total')
+            'orders.date'            
         )->join('users', 'users.id', '=', 'orders.user_id')
         ->join('products', 'products.id', '=', 'orders.product_id')
         ->paginate(10)
-        ->appends(request()->query());        
-    }  
+        ->appends(request()->query());  
+
+        $this->discount->getOrderDiscount($response);
+        
+        return $response;
+    }
 }

@@ -22,7 +22,7 @@ $().ready(function() {
             },
             quantity: {
                 required: "Please enter quantity",
-                digits: "Please enter only digits"
+                digits: "Please enter only positive digits"
             }
         }
     });

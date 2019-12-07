@@ -77,7 +77,7 @@ class OrderController extends Controller
         return Validator::make($data, [
             'user' => 'required',
             'product' => 'required',
-            'quantity' => 'required'
+            'quantity' => 'required|integer|min:1'
         ]);
     }
 
